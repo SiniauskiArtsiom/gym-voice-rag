@@ -1,0 +1,27 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Env
+.env
+
+# Data
+data/chroma/
+data/processed/
+*.mp3
+*.wav
+*.ogg
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+data/neo4j/
