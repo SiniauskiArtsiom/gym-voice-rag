@@ -18,6 +18,7 @@ dependencies = [
     "faster-whisper>=1.0",
     "pytest>=8.3",
     "ruff>=0.7",
+    "fastembed>=0.4",
 ]
 
 [project.optional-dependencies]
