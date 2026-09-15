@@ -1,0 +1,190 @@
+{
+  "name": "GYM-voice-rag",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {
+          "download": true
+        }
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        0,
+        0
+      ],
+      "id": "01d7dc27-346c-42b8-a652-6eedd76796e9",
+      "name": "Telegram Trigger",
+      "webhookId": "fcc7734b-0511-4702-93a8-1126c137b84b",
+      "credentials": {
+        "telegramApi": {
+          "id": "oGNKgWaHd8euMPoA",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://172.17.0.1:8000/ask_voice",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          },
+          "timeout": 60000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        448,
+        0
+      ],
+      "id": "4a1cacee-4028-4d44-bb18-82027ffa84bc",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $json.message.voice.file_id }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "6915e53d-4c28-44b9-8fbc-171130fc26cf",
+      "name": "Get a file",
+      "webhookId": "c5145868-fbab-4b99-86f6-fc19ec706261",
+      "credentials": {
+        "telegramApi": {
+          "id": "oGNKgWaHd8euMPoA",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=http://172.17.0.1:8000/audio/{{ $json.audio_path }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        672,
+        0
+      ],
+      "id": "748fe86a-f244-49b5-bbdf-d2e24b781c83",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "operation": "sendAudio",
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "binaryData": true,
+        "additionalFields": {
+          "caption": "={{ $('HTTP Request').item.json.answer }}"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        896,
+        0
+      ],
+      "id": "b2a295fb-7e50-456c-a182-c1e607f4701c",
+      "name": "Send an audio file",
+      "webhookId": "2500957c-0dee-4af3-a6c1-fe3c9a74f95f",
+      "credentials": {
+        "telegramApi": {
+          "id": "oGNKgWaHd8euMPoA",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get a file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get a file": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Send an audio file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "10029da8-5f2e-4f25-8ee6-912dc92b2e70",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "42c8fe3f35565955e111a1fa112e638d67ce5aaf5e69bb2d8b8b6ad93c60f7f0"
+  },
+  "nodeGroups": [],
+  "id": "SZPXkinyoSpsO0sk",
+  "tags": []
+}
