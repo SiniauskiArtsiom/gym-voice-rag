@@ -34,6 +34,23 @@ def get_client() -> OpenAI:
     return _client
 
 
+THINKING_MARKERS = (
+    "we need to",
+    "let me think",
+    "here's a thinking",
+    "thinking process",
+    "1. analyze",
+    "step 1:",
+    "the user asks",
+    "the question:",
+)
+
+
+def _looks_like_thinking(text: str) -> bool:
+    """Detect chain-of-thought leakage in the response."""
+    lowered = text.lower()
+    return any(marker in lowered for marker in THINKING_MARKERS)
+
 def _try_model(model: str, system_prompt: str, user_prompt: str,
                temperature: float, max_tokens: int) -> str | None:
     """Try a single model. Returns text or None on rate limit / error."""
@@ -47,6 +64,7 @@ def _try_model(model: str, system_prompt: str, user_prompt: str,
             ],
             temperature=temperature,
             max_tokens=max_tokens,
+	    extra_body={"reasoning": {"enabled": False}},
         )
         choice = response.choices[0]
         finish = choice.finish_reason
@@ -54,6 +72,9 @@ def _try_model(model: str, system_prompt: str, user_prompt: str,
         logger.info("Model %s answered (finish_reason=%s, len=%d)", model, finish, len(text))
         if not text:
             logger.warning("Model %s returned empty text, trying next", model)
+            return None
+        if _looks_like_thinking(text):
+            logger.warning("Model %s leaked thinking, trying next", model)
             return None
         return text
     except RateLimitError as e:
