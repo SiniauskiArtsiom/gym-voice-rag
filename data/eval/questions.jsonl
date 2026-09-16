@@ -1,0 +1,20 @@
+{"question": "Какие упражнения на грудь без штанги?", "expected_doc_ids": ["chest_exercises"], "category": "chest", "has_graph_facts": true}
+{"question": "Какие базовые упражнения на спину?", "expected_doc_ids": ["back_exercises"], "category": "back", "has_graph_facts": true}
+{"question": "Какие упражнения на ноги самые эффективные?", "expected_doc_ids": ["leg_exercises"], "category": "legs", "has_graph_facts": true}
+{"question": "Что делать при боли в плече?", "expected_doc_ids": ["injuries_shoulder"], "category": "injury", "has_graph_facts": true}
+{"question": "Что делать при боли в колене?", "expected_doc_ids": ["injuries_knee"], "category": "injury", "has_graph_facts": true}
+{"question": "Как избежать боли в пояснице на тренировке?", "expected_doc_ids": ["injuries_back"], "category": "injury", "has_graph_facts": true}
+{"question": "Сколько белка нужно в день для роста мышц?", "expected_doc_ids": ["nutrition_protein"], "category": "nutrition", "has_graph_facts": false}
+{"question": "Что важно для восстановления после тренировки?", "expected_doc_ids": ["recovery_sleep"], "category": "recovery", "has_graph_facts": false}
+{"question": "Что такое прогрессивная перегрузка?", "expected_doc_ids": ["progressive_overload"], "category": "principle", "has_graph_facts": false}
+{"question": "Как правильно разминаться перед тренировкой?", "expected_doc_ids": ["warmup"], "category": "warmup", "has_graph_facts": false}
+{"question": "Что входит в программу 5x5?", "expected_doc_ids": ["program_5x5"], "category": "program", "has_graph_facts": true}
+{"question": "Что такое программа PHUL?", "expected_doc_ids": ["program_phul"], "category": "program", "has_graph_facts": true}
+{"question": "Что такое программа Full Body?", "expected_doc_ids": ["program_fullbody"], "category": "program", "has_graph_facts": true}
+{"question": "Для чего нужна штанга в тренировках?", "expected_doc_ids": ["equipment_barbell"], "category": "equipment", "has_graph_facts": false}
+{"question": "Чем полезны гантели?", "expected_doc_ids": ["equipment_dumbbell"], "category": "equipment", "has_graph_facts": false}
+{"question": "Какие тренажёры использовать в зале?", "expected_doc_ids": ["equipment_machines"], "category": "equipment", "has_graph_facts": false}
+{"question": "Какие упражнения на плечи можно делать?", "expected_doc_ids": ["shoulders_exercises"], "category": "shoulders", "has_graph_facts": true}
+{"question": "Какие упражнения на руки лучшие?", "expected_doc_ids": ["arms_exercises"], "category": "arms", "has_graph_facts": true}
+{"question": "Чем заменить жим лёжа?", "expected_doc_ids": ["chest_exercises"], "category": "substitution", "has_graph_facts": true}
+{"question": "Какие упражнения на бицепс делать?", "expected_doc_ids": ["arms_exercises"], "category": "arms", "has_graph_facts": true}
